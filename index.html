@@ -17,5 +17,33 @@
     </form>
     <div id="messageContainer" style="display: none;"></div> 
   </div>
+  <script>
+    document.getElementById("waitlistForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission
+  
+      const form = event.target;
+      const formData = new FormData(form);
+      const actionUrl = form.getAttribute("action");
+  
+      fetch(actionUrl, {
+        method: "POST",
+        body: new URLSearchParams(formData)
+      })
+      .then(response => response.text())
+      .then(text => {
+        if (text.includes("Thank you")) {
+          // Redirect to success page if the response is positive
+          window.location.href = "success.html";
+        } else {
+          // Redirect to error page if there's an issue
+          window.location.href = "error.html";
+        }
+      })
+      .catch(error => {
+        // Redirect to error page if there's a network or fetch error
+        window.location.href = "error.html";
+      });
+    });
+  </script>
 </body>
 </html>
