@@ -23,16 +23,23 @@
   const formData = new FormData(form);
   const actionUrl = form.getAttribute("action");
 
-  // Use URL query parameter approach for debugging
-  fetch(actionUrl + "?email=" + encodeURIComponent(formData.get("email")), {
+  fetch(actionUrl, {
     method: "POST",
+    body: new URLSearchParams(formData),
   })
   .then(response => response.text())
   .then(text => {
-    displayMessage(text, "success");
+    if (text.includes("Thank you")) {
+      // Redirect to the success page if the response is positive
+      window.location.href = "success.html";
+    } else {
+      // Redirect to the error page if an error occurred
+      window.location.href = "error.html";
+    }
   })
   .catch(error => {
-    displayMessage("There was an error submitting your request. Please try again.", "error");
+    // Redirect to the error page if there's a network or fetch error
+    window.location.href = "error.html";
   });
 });
 
