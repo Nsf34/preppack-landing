@@ -15,48 +15,6 @@
       <button type="submit">Join the Waitlist</button>
     </form>
     <div id="messageContainer" style="display: none;"></div> 
-    <script>
-  document.getElementById("waitlistForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent the default form submission
-
-  const form = event.target;
-  const formData = new FormData(form);
-  const actionUrl = form.getAttribute("action");
-
-  fetch(actionUrl, {
-    method: "POST",
-    body: new URLSearchParams(formData),
-  })
-  .then(response => response.text())
-  .then(text => {
-    if (text.includes("Thank you")) {
-      // Redirect to the success page if the response is positive
-      window.location.href = "success.html";
-    } else {
-      // Redirect to the error page if an error occurred
-      window.location.href = "error.html";
-    }
-  })
-  .catch(error => {
-    // Redirect to the error page if there's a network or fetch error
-    window.location.href = "error.html";
-  });
-});
-
-  function displayMessage(message, type) {
-    const messageContainer = document.getElementById("messageContainer");
-    messageContainer.style.display = "block";
-    messageContainer.textContent = message;
-    messageContainer.className = ""; // Reset classes
-
-    // Apply classes for styling
-    if (type === "success") {
-      messageContainer.classList.add("message-success");
-    } else {
-      messageContainer.classList.add("message-error");
-    }
-  }
-</script>
   </div>
 </body>
 </html>
