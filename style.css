@@ -50,3 +50,24 @@ button {
 button:hover {
   background-color: #1b3d21;
 }
+
+/* Style for the message container */
+#messageContainer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Success message styling */
+.message-success {
+  background-color: #235427; /* PrepPack theme color */
+  color: white;
+}
+
+/* Error message styling */
+.message-error {
+  background-color: #ff4c4c; /* Example error color */
+  color: white;
+}
