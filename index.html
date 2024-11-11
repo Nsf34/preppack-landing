@@ -17,24 +17,24 @@
     <div id="messageContainer" style="display: none;"></div> 
     <script>
   document.getElementById("waitlistForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); // Prevent the default form submission
 
-    const form = event.target;
-    const formData = new FormData(form);
-    const actionUrl = form.getAttribute("action");
+  const form = event.target;
+  const formData = new FormData(form);
+  const actionUrl = form.getAttribute("action");
 
-    fetch(actionUrl, {
-      method: "POST",
-      body: new URLSearchParams(formData),
-    })
-    .then(response => response.text())
-    .then(text => {
-      displayMessage(text, "success");
-    })
-    .catch(error => {
-      displayMessage("There was an error submitting your request. Please try again.", "error");
-    });
+  // Use URL query parameter approach for debugging
+  fetch(actionUrl + "?email=" + encodeURIComponent(formData.get("email")), {
+    method: "POST",
+  })
+  .then(response => response.text())
+  .then(text => {
+    displayMessage(text, "success");
+  })
+  .catch(error => {
+    displayMessage("There was an error submitting your request. Please try again.", "error");
   });
+});
 
   function displayMessage(message, type) {
     const messageContainer = document.getElementById("messageContainer");
