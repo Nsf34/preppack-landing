@@ -95,3 +95,9 @@ button:hover {
 .home-button:hover {
   background-color: #1b3d21;
 }
+
+/* Mobile-specific styling for input and button spacing */
+@media (max-width: 600px) {
+  input[type="email"] {
+    margin-bottom: 1rem; /* Adds space below the email input on mobile */
+  }
