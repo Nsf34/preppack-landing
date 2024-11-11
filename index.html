@@ -10,10 +10,46 @@
   <div class="container">
     <h1>PrepPack is Launching Soon!</h1>
     <p>Be the first to know when we launch. Join the waitlist!</p>
-    <form action="https://script.google.com/macros/s/AKfycbyJnQ26rs4ZGToTSai0K2CfPTIQxyvYXzNnn_vnGeyjiuzwCTf4YMQGW6yL4e2eGh4Cpg/exec" method="POST">
+    <form id="waitlistForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
       <input type="email" placeholder="Enter your email" name="email" required>
       <button type="submit">Join the Waitlist</button>
     </form>
+    <div id="messageContainer" style="display: none;"></div> 
+    <script>
+  document.getElementById("waitlistForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const actionUrl = form.getAttribute("action");
+
+    fetch(actionUrl, {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => response.text())
+    .then(text => {
+      displayMessage(text, "success");
+    })
+    .catch(error => {
+      displayMessage("There was an error submitting your request. Please try again.", "error");
+    });
+  });
+
+  function displayMessage(message, type) {
+    const messageContainer = document.getElementById("messageContainer");
+    messageContainer.style.display = "block";
+    messageContainer.textContent = message;
+    messageContainer.className = ""; // Reset classes
+
+    // Apply classes for styling
+    if (type === "success") {
+      messageContainer.classList.add("message-success");
+    } else {
+      messageContainer.classList.add("message-error");
+    }
+  }
+</script>
   </div>
 </body>
 </html>
